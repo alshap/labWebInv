@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+      <style>
+      </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <title>Hardware categories</title>
+</head>
+<body>
+	
+	{% include "./base.html" %}	
+
+	{% load static %}
+	{% csrf_token %}
+	{% if category.name %}
+	<h1 style="width=100%;margin-top: 1%;text-align: center;" > {{ category.name }} </h1>
+	
+	
+	<hr class="dropdown-divider" style="margin-top: 1%;">
+
+			<div class="row" style="width: 95%; margin: auto;">
+			
+			  {% for hardware in category.hardware_set.all %}
+				  <div class="col-sm">
+					<div class="card" style="width: 18rem; margin: 2%;">
+					  <img src="{% static 'hardware/' %}{{category.name}}/{{ hardware.image_name }}.jpg" class="card-img-top" alt="{{ hardware.name }}"> 
+					  <div class="card-body">
+						<h5 class="card-title">{{ hardware.name }}</h5>
+						
+						{% if hardware.hardwareamount.quantity > 0 %}
+							<div class="card" style="border: 1px solid #adb5bd;width: 50%;text-align: center; background-color: #20C997;"><p style="padding-top: 10%;"><b>In stock</b></p></div>
+						{% else %}
+							<div class="card" style="border: 1px solid #adb5bd; width: 50%;text-align: center; background-color: #dc3545"><p style="padding-top: 10%;"><b>Out of stock</b></p></div>
+						{% endif %}
+						
+						<p class="card-text">Quantity: {{ hardware.hardwareamount.quantity }} </p>
+						<p class="card-text">Total quantity: {{ hardware.hardwareamount.totalquantity }} </p>
+						<a href="{% url 'hardware:hardware_request' category.id hardware.id %}" class="btn btn-primary">Order</a>
+					  </div>
+					</div>
+				  </div>
+			  {% endfor %}
+			  
+		   </div>
+			
+		  {% else %}
+			  <p>Error. Category is empty or can not be loaded.</p>
+	{% endif %}
+</body>

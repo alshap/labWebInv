@@ -1,0 +1,61 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+      <style>
+          .gr{
+              background-color: #20c997;
+              color: black;
+          }
+
+          .marg{
+            margin: 3%;
+          }
+          
+      </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <title>Programming laboratory</title>
+  </head>
+  <body>
+    
+    {% include "./base.html" %}
+
+    
+
+    
+      <div class="row" style="width: 60%; margin: auto;">
+        
+        {% load static %}
+      {% if hardware_categories %}
+          {% for category in hardware_categories %}
+            {% if category.available %}
+                <div class="col-sm">
+                  <div class="card marg" style="width: 18rem;">
+                    <img src="{% static 'category/' %}{{ category.name }}.jpg" class="card-img-top" alt="{{ category.name }}" style="width:100%;height:300px;">
+                    <div class="card-body">
+                      
+                      
+                      <h5 class="card-title">{{ category.name }}</h5>
+                      <p class="card-text">{{ category.description }}</p>
+                      <a href="{% url 'hardware:devices' category.id %}" class="btn btn-primary">Move</a>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+          {% endfor %}
+      {% else %}
+          <p>Error. Categories can not be loaded.</p>
+      {% endif %}
+
+      </div>
+
+ 
+  </body>
+</html>
