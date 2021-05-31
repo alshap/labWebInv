@@ -18,7 +18,7 @@ def change_language(request):
             if language != settings.LANGUAGE_CODE and [lang for lang in settings.LANGUAGES if lang[0] == language]:
                 redirect_path = '/'+language
             elif language == settings.LANGUAGE_CODE:
-                redirect_path = ''
+                redirect_path = '/'
             else:
                 return response
             from django.utils import translation

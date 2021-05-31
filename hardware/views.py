@@ -11,14 +11,42 @@ from django.http import HttpResponseRedirect, HttpResponse
 
 class IndexView(generic.ListView):
     template_name = 'hardware/index.html'
-    context_object_name = 'hardware_categories'
     
     def get_queryset(self):
         return Category.objects.all()
     
+    def get(self, request, *args, **kwargs):
+        if request.session.get('obj_view'):
+            return render(request, self.template_name,
+                     {'hardware_categories':self.get_queryset(),
+                      'obj_view':request.session['obj_view']})
+        return render(request, self.template_name,
+                     {'hardware_categories':self.get_queryset(),
+                      'obj_view':0})
+
+def set_obj_view(request, view_value):
+    try:
+        request.session['obj_view'] = int(view_value)
+        return render(request, IndexView.template_name,
+                     {'hardware_categories':IndexView.get_queryset(IndexView),
+                      'obj_view':request.session['obj_view']})
+    except Exception as e:
+#unsuitable for prod
+        return HttpResponse(e)
+        
+    
 class DevicesView(generic.DetailView):
-    model = Category
     template_name = 'hardware/category-details.html'
+    
+    def get(self, request, pk):
+        if request.session.get('obj_view'):
+            return render(request, self.template_name,
+                     {'category': Category.objects.get(pk=pk),
+                      'obj_view':request.session['obj_view']})
+        return render(request, self.template_name,
+                     {'category': Category.objects.get(pk=pk),
+                      'obj_view':0})
+
     
 class HardwareRequestView(generic.DetailView):
     model = Hardware

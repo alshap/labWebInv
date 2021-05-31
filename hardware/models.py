@@ -69,7 +69,11 @@ class TakenHardware(models.Model):
         h = Hardware.objects.get(pk=self.hardware.id)
         h.hardwareamount.quantity -= int(self.quantity)
         h.hardwareamount.save()
+        
         super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return self.taker.username + ' | ' + self.date_from.date().strftime("%m/%d/%Y") +'-'+ self.date_to.date().strftime("%m/%d/%Y") +' | '+ self.hardware.name+' | Q:'+ str(self.quantity)
 
 class TakenHardwareArchieve(models.Model):
     add_date = models.DateTimeField('return date', auto_now_add = True, blank = True)
@@ -77,3 +81,6 @@ class TakenHardwareArchieve(models.Model):
     user = models.ForeignKey(User, on_delete = models.DO_NOTHING)
     quantity = models.PositiveIntegerField(default = 1)
     description = models.CharField(max_length = 300, default = '')
+    
+    def __str__(self):
+        return self.user.username + ' | ' + self.add_date.date().strftime("%m/%d/%Y") +' | '+ self.hardware.name+' | Q:'+ str(self.quantity)
