@@ -19,6 +19,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
@@ -32,21 +35,22 @@
   </head>
   
   
-  <body style="background-color: #FFFDF7">
+  <body>
     
       {% include "./base.html" %}
 
 
-        <div class="btn-group" style="width:80%;margin:auto;" role="group" aria-label="">
+        <!--upper-->
+        <div class="btn-group upper-panel" role="group" aria-label="">
           
           <!--info-->
-          <div class="card p-1" style="margin-left: 25%;top:10px;margin-bottom: 10px;width: 150px;height: 95px;">
+          <div class="card p-1 upper-panel-info">
                 <span class="badge alert-primary m-1">Quantity</span><span class="badge alert-success m-1">Available</span>
                 <span class="badge alert-danger m-1">Empty</span>
           </div>
           
           <!--search-->
-          <div style="height:50px;margin-top:30px;";>
+          <div class="upper-panel-search">
             <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
@@ -54,7 +58,7 @@
           </div>
           
           <!--view choice-->
-          <div class="dropdown show" style="top:10px;margin-bottom: 10px;">
+          <div class="dropdown show upper-panel-choice">
             <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {% if obj_view == 0 %}
               <img src="{% static 'icons/cardview-icon.jpg' %}" width="50px">
@@ -75,6 +79,7 @@
           </div>
             
         </div>
+        <!---->
         
         
    
