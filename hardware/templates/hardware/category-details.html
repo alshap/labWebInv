@@ -79,8 +79,13 @@
 					  </div>
 				{% else %}
 
-					<a href="{% url 'hardware:hardware_request' category.id hardware.id %}" class="list-group-item list-group-item" style="margin: 5px;">{{ hardware.name }}</a>
-               
+					<a href="{% url 'hardware:hardware_request' category.id hardware.id %}" class="list-group-item list-group-item" style="margin: 5px;">
+					    <img src="{% static 'hardware/' %}{{category.name}}/{{ hardware.image_name }}.jpg" class="card-img-top" alt="{{ category.name }}" style="width:50px;">
+					    {{ hardware.name }}
+					    <span class="badge alert-primary">{{ hardware.hardwareamount.totalquantity }}</span>
+					    <span class="badge alert-success">{{ hardware.hardwareamount.quantity }}</span>
+					    </a>
+					
 				{% endif %}
 			  {% endfor %}
 			  
