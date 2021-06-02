@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import generic
 
 from .models import Hardware, Category, TakenHardware
+from .forms import SearchForm
 from django.contrib.auth.models import User
 
 from django.urls import reverse
@@ -99,5 +100,15 @@ def take(request, hardware_id):
             }
             )
 
-
+def hardware_search(request):
+    if request.method == 'GET':
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['search_query']
+            hardwares = Hardware.objects.filter(name__icontains=query)
+    else:
+        form = SearchForm()
+    return render(request, 'hardware/search.html',{'hardwares': hardwares})
+    
+    
 #       

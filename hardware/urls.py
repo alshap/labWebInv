@@ -9,4 +9,5 @@ urlpatterns = [
         url(r'^(?P<category_id>[0-9]+)/(?P<pk>[0-9]+)/$', views.HardwareRequestView.as_view(), name='hardware_request'),
         url(r'^(?P<hardware_id>[0-9]+)/take/$', views.take, name='take'),
         url(r'^view/([0-9]+)/$', views.set_obj_view, name='setview'),
+        url(r'^search/$', views.hardware_search, name='hardware_search'),
     ]
