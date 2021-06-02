@@ -12,6 +12,18 @@ class Category(models.Model):
     name = models.CharField(max_length = 50, unique = True)
     description = models.CharField(max_length=200, default='No description')
     available = models.BooleanField(default = True)
+    
+    def hardwares_amount(self):
+        return len(self.hardware_set.all())
+    
+    def hardwares_available_amount(self):
+        hardwares = self.hardware_set.all()
+        return len([x for x in hardwares if x.hardwareamount.quantity > 0])
+    
+    def hardwares_empty_amount(self):
+        hardwares = self.hardware_set.all()
+        return len([x for x in hardwares if not x.hardwareamount.quantity > 0])
+    
     def __str__(self):
         return self.name    
 
