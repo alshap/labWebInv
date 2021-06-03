@@ -101,6 +101,7 @@ def take(request, hardware_id):
             )
 
 def hardware_search(request):
+    hardwares = []
     if request.method == 'GET':
         form = SearchForm(request.GET)
         if form.is_valid():

@@ -21,9 +21,22 @@ body {
 	margin: auto;
 	height:50px;
 	vertical-align: middle;
+	width: 70%;
 }
 
 .upper-panel-choice{
 	margin: auto;
 	vertical-align: middle;
+
+}
+
+.hardware-card{
+	margin: 10px;
+	width:350px;
+}
+
+@media screen and (max-width: 600px){
+	.upper-panel-search{
+		width: initial;
+	}
 }
