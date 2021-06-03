@@ -73,3 +73,5 @@ class CategoryAdmin(admin.ModelAdmin):
         actions = super(CategoryAdmin, self).get_actions(request)
         del actions['delete_selected']
         return actions
+    
+admin.site.register(HardwareAmount)
