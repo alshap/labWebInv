@@ -11,3 +11,15 @@ urlpatterns = [
         url(r'^view/([0-9]+)/$', views.set_obj_view, name='setview'),
         url(r'^search/$', views.hardware_search, name='hardware_search'),
     ]
+"""
+Contains hardware app all urls.
+
+names:
+
+* index => main app page. Template displays categories set.
+* devices => certain category page. Template displays hardware set based on category.
+* hardware_request => Hardware request form template.
+* take => Function on success hardware_request form post.
+* setview => Sets the card or list view to the index and devices views.
+* hardware_search => Function on success search form.
+"""

@@ -1,11 +1,6 @@
 from django.contrib import admin
 
 from .models import Hardware, Category, HardwareAmount, TakenHardware, TakenHardwareArchieve
-# Register your models here.
-
-# @admin.register(HardwareAmount)
-# class HardwareAmountAdmin(admin.ModelAdmin):
-#     list_display = ('get_hardware_name', 'get_hardware_category', 'quantity')
 
 class HardwareAmountInline(admin.TabularInline):
     model = HardwareAmount
