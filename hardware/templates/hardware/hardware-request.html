@@ -84,6 +84,11 @@
 					<input name="quantity" type="number" placeholder=1>
 				</div>
 				
+				<div class="col-auto">
+					<label class="form-label">Return date: </label>
+					<input id="rdate" name="returndate" type="date" placeholder=1>
+				</div>
+				
 				<div class="form-group">
 					<label>Additional info</label>
 					<textarea class="form-control" name="desc" rows="3"></textarea>
@@ -101,3 +106,21 @@
 		</div>
 	</form>
 </body>
+
+<script>
+//default return date today+30days
+
+Date.prototype.toDateInputValue = (function() {
+	var local = new Date(this);
+	local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+	return local.toJSON().slice(0, 10);
+});
+
+
+var date = new Date();
+date.setDate(date.getDate() + 30);
+$(document).ready( function() {
+	$('#rdate').val(date.toDateInputValue());
+});
+
+</script>

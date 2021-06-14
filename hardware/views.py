@@ -10,6 +10,8 @@ from django.shortcuts import get_object_or_404, render, redirect
 
 from django.http import HttpResponseRedirect, HttpResponse
 
+from datetime import datetime
+
 class IndexView(generic.ListView):
     """Index view with all categories set specified with card or list view"""
       
@@ -139,13 +141,29 @@ def take(request, hardware_id):
             'error_message': 'You did not choose quantity',
             }
             )
+    
+    try:
+        return_date = datetime.strptime(request.POST['returndate'], '%Y-%m-%d').date()
+        if return_date > datetime.date(datetime.now()):
+            pass
+        else:
+            return render(request, 'hardware/hardware-request.html', {
+                'hardware': hw,
+                'error_message': 'Date must be greater than today',
+                }
+                )
+    except (KeyError, ValueError) as e:
+        return render(request, 'hardware/hardware-request.html', {
+            'hardware': hw,
+            'error_message': e,
+            }
+            )
     else:
-        
         desc = request.POST['desc']
         if desc == '':
-            new_take = TakenHardware(taker = current_user, hardware = hw, quantity = amount)
+            new_take = TakenHardware(taker = current_user, hardware = hw, quantity = amount, date_to = return_date)
         else:
-            new_take = TakenHardware(taker = current_user, hardware = hw, quantity = amount, description = desc)
+            new_take = TakenHardware(taker = current_user, hardware = hw, quantity = amount, description = desc, date_to = return_date)
         new_take.save()
         return render(request, 'hardware/hardware-request.html', {
             'hardware': hw,
