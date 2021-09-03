@@ -32,8 +32,8 @@ urlpatterns += i18n_patterns(
         url(_(r'^explore_online/'), include('explore_online.urls')),
         url(_(r'^projects/'), include('projects.urls')),
         url(_(r'^guides/'), include('guides.urls')),
-        url(r'^docs/', include('docs.urls')),
         path('', include('home.urls')),
+        path('',include('django.contrib.auth.urls')),
         prefix_default_language = False
     )
 
