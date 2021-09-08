@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.views import generic
 from django.http import HttpResponseRedirect
 from django.conf import settings
-from . import forms
 
 class IndexView(generic.ListView):
     template_name = 'home/index.html'
@@ -28,5 +27,4 @@ def change_language(request):
             response.set_cookie(settings.LANGUAGE_COOKIE_NAME, language)
     return response
 
-def login(request):
-    return render(request, 'home/login.html', {'form': forms.LoginForm})
+

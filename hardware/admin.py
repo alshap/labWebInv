@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Hardware, Category, HardwareAmount, TakenHardware, TakenHardwareArchieve
+from .models import Hardware, Category, HardwareAmount, TakenHardware, TakenHardwareArchieve, Room
 
 class HardwareAmountInline(admin.TabularInline):
     model = HardwareAmount
@@ -70,3 +70,4 @@ class CategoryAdmin(admin.ModelAdmin):
         return actions
     
 admin.site.register(HardwareAmount)
+admin.site.register(Room)

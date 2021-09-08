@@ -8,6 +8,16 @@ from django.core.validators import MinValueValidator
 
 from datetime import datetime, timedelta
 
+class Room(models.Model):
+    designation = models.CharField(max_length = 50, unique = True)
+    name = models.CharField(max_length = 50, unique = True)
+    location = models.CharField(max_length = 200)
+    available = models.BooleanField(default = True)
+
+    def __str__(self):
+        return self.designation + ' | ' + self.name
+    
+
 class Category(models.Model):
     """
     Category model of hardwares
@@ -20,31 +30,59 @@ class Category(models.Model):
     """Availability is used to specify is user can see category in template. Default True"""
 
     
-    def hardwares_amount(self):
-        """Get all hardware related to this category
+    def hardwares_amount_inroom(self, room):
+        hardwares = self.hardware_set.all()
+        amount = 0
+        for hw in hardwares:
+            if hw.get_amount_inroom(room) > -1:
+                amount += 1
+        return amount
 
-        :return: Hardware list related to category
-        :rtype: list
-        """
+    def hardwares_available_amount_inroom(self, room):
+        hardwares = self.hardware_set.all()
+        amount = 0
+        for hw in hardwares:
+            if hw.get_amount_inroom(room) > 0:
+                amount += 1
+        return amount
+
+    def hardwares_empty_amount_inroom(self, room):
+        hardwares = self.hardware_set.all()
+        amount = 0
+        for hw in hardwares:
+            if hw.get_amount_inroom(room) == 0:
+                amount += 1
+        return amount
+
+    def hardwares_amount(self):
         return len(self.hardware_set.all())
     
-    def hardwares_available_amount(self):
-        """Get all hardware related to this category with quantity > 0
+    def hardwares_amount_values(self):
+        amount = 0
+        for hw in self.hardware_set.all():
+            amount += hw.get_amount_values()
+        return amount
 
-        :return: Hardware list related to category with quantity > 0
-        :rtype: list
-        """
+    def hardwares_totalamount_values(self):
+        amount = 0
+        for hw in self.hardware_set.all():
+            amount += hw.get_totalamount_values()
+        return amount
+            
+    def hardwares_available_amount(self):
         hardwares = self.hardware_set.all()
-        return len([x for x in hardwares if x.hardwareamount.quantity > 0])
+        return len([x for x in hardwares if x.get_amount() > 0])
     
     def hardwares_empty_amount(self):
-        """Get all hardware related to this category with quantity <= 0
-
-        :return: Hardware list related to category with quantity <= 0
-        :rtype: list
-        """
         hardwares = self.hardware_set.all()
-        return len([x for x in hardwares if not x.hardwareamount.quantity > 0])
+        return len([x for x in hardwares if x.get_amount() <= 0])
+
+    def bool_hardwares_inroom(self, room):
+        hardwares = self.hardware_set.all()
+        for h in hardwares:
+            if h.isHardwaresInroom(room):
+                return True
+        return False
     
     def __str__(self):
         return self.name    
@@ -66,12 +104,44 @@ class Hardware(models.Model):
         return self.name
     
     def get_amount(self):
-        """Get hardware available quantity
+        amount = 0
+        for hw in self.hardwareamount_set.all():
+            #amount += hw.quantity
+            amount += 1
+        return amount
+
+    def get_amount_values(self):
+        amount = 0
+        for hw in self.hardwareamount_set.all():
+            amount += hw.quantity
+        return amount
+
+    def get_totalamount_values(self):
+        amount = 0
+        for hw in self.hardwareamount_set.all():
+            amount += hw.totalquantity
+        return amount
+
+    def get_amount_inroom(self, room):
+        try:
+            return self.hardwareamount_set.get(room = room).quantity
+        except Exception:
+            return -1
+
+    def get_totalamount_inroom(self, room):
+        try:
+            return self.hardwareamount_set.get(room = room).totalquantity
+        except Exception:
+            return -1
+
+    def isHardwaresInroom(self, room):
+        if len(self.hardwareamount_set.filter(room = room)) > 0:
+            return True
+        return False
+    
         
-        :return: numeric hardware available amount
-        :rtype: int
-        """
-        return self.hardwareamount.quantity
+
+    
     
 class HardwareAmount(models.Model):
     """
@@ -79,15 +149,16 @@ class HardwareAmount(models.Model):
     
     Is presented as a separate model in order not to load Hardware model.
     """
-    hardware = models.OneToOneField(Hardware, on_delete = models.RESTRICT)
+    hardware = models.ForeignKey(Hardware, on_delete = models.RESTRICT)
     """Foreign key related to hardware. OneToOne relationship."""
     quantity = models.PositiveIntegerField(default = 0, validators=[MinValueValidator(0)])
     """Current available quantity. Should be positive integer"""
     totalquantity = models.PositiveIntegerField(default = 0)
     """Total hardwares quantity. Should be positive integer"""
+    room = models.ForeignKey(Room, on_delete = models.CASCADE, default = Room.objects.get(name='Programming Laboratory').pk)
     
     def __str__(self):
-        return self.hardware.name
+        return self.hardware.name + ' | ' + self.room.designation
         
     def get_hardware_name(self):
         """Get hardware name related to hardwareamount
@@ -127,6 +198,7 @@ class TakenHardware(models.Model):
     """Hardware taken quantity. Should be >= 1"""
     description = models.CharField(max_length = 300, default = '')
     """Unnecessary description to specify something if needed"""
+    room = models.ForeignKey(Room, on_delete = models.CASCADE, default = Room.objects.get(name='Programming Laboratory').pk)
     
     def delete(self, *args, **kwargs):
         """
@@ -142,10 +214,11 @@ class TakenHardware(models.Model):
         Then it triggers default delete() method 
         """
         h = Hardware.objects.get(pk=self.hardware.id)
-        h.hardwareamount.quantity += int(self.quantity)
-        h.hardwareamount.save()
+        hw_inroom = h.hardwareamount_set.get(room = self.room)
+        hw_inroom.quantity += int(self.quantity)  
+        hw_inroom.save()
         
-        archieve_record = TakenHardwareArchieve(user = self.taker, hardware = self.hardware, quantity = self.quantity, description = self.description)
+        archieve_record = TakenHardwareArchieve(user = self.taker, hardware = self.hardware, quantity = self.quantity, description = self.description, room = self.room)
         archieve_record.save()
         
         super().delete(*args, **kwargs)
@@ -159,8 +232,12 @@ class TakenHardware(models.Model):
         Then it triggers default delete() method.
         """
         h = Hardware.objects.get(pk=self.hardware.id)
-        h.hardwareamount.quantity -= int(self.quantity)
-        h.hardwareamount.save()
+        if int(h.hardwareamount_set.get(room = self.room).quantity) < int(self.quantity) or int(h.hardwareamount_set.get(room = self.room).quantity) == 0:
+            raise ValueError('Not enought hardware amount.')
+        else:
+            hw_inroom = h.hardwareamount_set.get(room = self.room)
+            hw_inroom.quantity -= int(self.quantity)
+            hw_inroom.save()
         
         super().save(*args, **kwargs)
     
@@ -187,6 +264,10 @@ class TakenHardwareArchieve(models.Model):
     """Taken hardware quantity. Should be positive."""
     description = models.CharField(max_length = 300, default = '')
     """Not necessary description."""
+
+    room = models.ForeignKey(Room, on_delete = models.CASCADE)
+    
     
     def __str__(self):
         return self.user.username + ' | ' + self.add_date.date().strftime("%m/%d/%Y") +' | '+ self.hardware.name+' | Q:'+ str(self.quantity)
+

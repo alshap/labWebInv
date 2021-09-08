@@ -34,6 +34,23 @@ body {
 	margin: 10px;
 	width:350px;
 }
+.scope{
+	height: 36px;margin-top: 8px;
+}
+.scope:hover{
+	background-color:#f0ad4e;
+	color: white;
+
+}
+.rooms-item{
+	cursor: pointer;height: 40px;padding: 7px;margin: 5px;text-align: center;width: 100px;
+}
+.rooms-item-chosen{
+	background-color: #0275d8!important
+}
+.rooms-item-nochosen{
+	background-color: white!important
+}
 
 @media screen and (max-width: 600px){
 	.upper-panel-search{

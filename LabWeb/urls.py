@@ -22,7 +22,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from home.views import change_language
 from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import gettext_lazy as _
-
+from django.contrib.auth import views as auth_views
 urlpatterns = [
         path('change_language/',change_language,name='change_language')
     ]
@@ -32,8 +32,9 @@ urlpatterns += i18n_patterns(
         url(_(r'^explore_online/'), include('explore_online.urls')),
         url(_(r'^projects/'), include('projects.urls')),
         url(_(r'^guides/'), include('guides.urls')),
+        #url(r'^docs/', include('docs.urls')),
         path('', include('home.urls')),
-        path('',include('django.contrib.auth.urls')),
+        path('', include('django.contrib.auth.urls')),
         prefix_default_language = False
     )
 
