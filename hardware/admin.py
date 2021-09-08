@@ -13,7 +13,7 @@ class HardwareAdmin(admin.ModelAdmin):
     list_display = ('name', 'category', 'product_id', 'image_name', 'available', 'get_amount')
     
     inlines = [HardwareAmountInline, TakenHardwareInline]
-    list_filter = ('category',)
+    list_filter = ('category','available')
     
     fieldsets = (
         ('Main section', {
@@ -36,6 +36,19 @@ class HardwareAdmin(admin.ModelAdmin):
 @admin.register(TakenHardware)
 class TakenHardwareAdmin(admin.ModelAdmin):
     actions = ['overwritten_delete_selected']
+
+    list_display = ('taker', 'hardware', 'quantity', 'date_from', 'date_to', 'room')
+    
+    list_filter = ['room']
+
+    fieldsets = (
+        ('Main section', {
+                'fields': ('taker', 'hardware', 'quantity', 'room')
+                }), 
+        ('Information', {
+                'fields':('description','date_to')
+            }),
+        )
     
     def get_actions(self, request):
         actions = super(TakenHardwareAdmin, self).get_actions(request)
