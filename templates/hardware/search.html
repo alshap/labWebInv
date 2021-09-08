@@ -25,17 +25,18 @@
   
   <body>
     
-      {% include "./base.html" %}
+      {% include "../base.html" %}
 
-	<h1 style="width=100%;margin-top: 1%;text-align: center;" > Search results </h1>
+	<h1 style="width:100%;margin-top: 1%;text-align: center;" > Search results </h1>
 	
 	
 	<hr class="dropdown-divider" style="margin-top: 1%;">
 	
       {% include "./upper-panel.html" %}
         
-        
-      
+      {% if msg %}  
+   <h3 style="width:100%;text-align:center">{{msg}}</h3>
+      {% endif %}
    <div class="row" style="width: 60%; margin: auto;">           
 	   {% for hardware in hardwares %}              
 		   <a href="{% url 'hardware:hardware_request' hardware.category.id hardware.id %}" class="list-group-item list-group-item" style="margin: 5px;">

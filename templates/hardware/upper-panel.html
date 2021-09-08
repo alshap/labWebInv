@@ -1,0 +1,83 @@
+{% load static %}
+<!--upper-->
+	<div class="btn-group upper-panel">
+          <!--info-->
+          <div class="card p-1 upper-panel-info">
+                <span class="badge alert-primary m-1">Quantity</span><span class="badge alert-success m-1">Available</span>
+                <span class="badge alert-danger m-1">Empty</span>
+          </div>
+          
+          <!--search-->
+          <div class="upper-panel-search">
+            <form class="d-flex" action="{% url 'hardware:hardware_search' %}" method="get">
+
+              <div class="input-group mb-3">
+                <input name="search_query" class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                      <select name='room_choice' class="form-select">
+                        <option selected value='All'>All rooms</option>
+                        {% for room in rooms %}
+                            <option value='{{ room.designation }}'>{{ room }}</option>
+                        {% endfor %}
+                      </select>
+                  </span>
+                </div>
+
+                <button class="btn btn-outline-success" type="submit">Search</button>
+
+              </div>
+            </form>
+          </div>
+
+        
+          
+          <!--view choice-->
+          <div class="dropdown show upper-panel-choice">
+            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {% if obj_view == 0 %}
+              <img src="{% static 'icons/cardview-icon.jpg' %}" width="50px">
+              {% else %}
+              <img src="{% static 'icons/listview-icon.jpg' %}" width="50px">
+              {% endif %}
+            </a>
+            
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="{% url 'hardware:setview' 0 %}">
+                  <img src="{% static 'icons/cardview-icon.jpg' %}" width="50px">Cardview
+              </a>
+              <a class="dropdown-item" href="{% url 'hardware:setview' 1 %}">
+                  <img src="{% static 'icons/listview-icon.jpg' %}" width="50px">Listview
+              </a>
+            
+            </div>
+          </div>
+        </div>
+<!---->
+<hr class="dropdown-divider" style="margin-top: 1%;">
+
+{% if rooms %}
+
+<div class="d-flex justify-content-center">
+        <span class="input-group-text scope">
+          <div style="margin-top: 5px;"><h4>Scope</h4></div>
+          <img style="width: 28pxpx;height:28px;border: 20%;margin-top:3px;background-color: transparent;opacity:0.1;" src="{% static 'icons/arrowicon.png' %}">
+        </span>
+        <form class="d-flex justify-content-center" action="{% url 'hardware:index' %}" method='GET'>
+                  {% if scope_room == 'All' %}
+                    <button onclick="this.form.submit()" name='scope' value='All' class="card rooms-item rooms-item-chosen">All</button>
+                  {% else %}
+                    <button onclick="this.form.submit()" name='scope' value='All' class="card rooms-item rooms-item-nochosen">All</button>
+                  {% endif %}
+              {% for room in rooms %}
+                  {% if scope_room == room.name %}
+                      <button onclick="this.form.submit()" name='scope' value='{{ room.name }}' class="card rooms-item rooms-item-chosen">{{ room.designation }}</button>
+                  {% else %}
+                      <button onclick="this.form.submit()" name='scope' value='{{ room.name }}' class="card rooms-item rooms-item-nochosen">{{ room.designation }}</button>
+                  {% endif %}
+              {% endfor %}
+          </form>
+</div>
+{% endif %}
+
+	

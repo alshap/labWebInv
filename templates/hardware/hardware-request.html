@@ -16,7 +16,7 @@
 <body>
 	
 	
-	{% include "./base.html" %}
+	{% include "../base.html" %}
 	
 	{% if modal_available %}
 		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -47,7 +47,7 @@
 	{% endif %}
 	
 	
-	<h1 style="width=100%;margin-top: 1%;text-align: center;" > {{ hardware.name }} </h1>
+	<h1 style="width:100%;margin-top: 1%;text-align: center;" > {{ hardware.name }} </h1>
 	
 	
 	<hr class="dropdown-divider" style="margin-top: 1%;">
@@ -56,11 +56,21 @@
 			<div class="card-body">
 				{% load static %}
 				<h3>Hardware details</h3>
-				<p>Name: {{ hardware.name }}</p>
+				<p><b>Name:</b> {{ hardware.name }}</p>
 
-				<p>Avaiable amount: {{ hardware.hardwareamount.quantity }}</p>
+				<p><b>Avaiable amount:</b></p>
+				<ul></ul>
+					{% for amount in hardware.hardwareamount_set.all %}
+						<li>{{amount.room}} | Quantity: {{amount.quantity}}</li>
+					{% endfor %}
+				</ul>
 
-				<p>Product id:{{ hardware.product_id }}</p>
+				
+
+				{% if hardware.product_id == 'undefined' %}
+				{% else %}
+				<p><b>Product id: </b>{{ hardware.product_id }}</p>
+				{% endif %}
 			</div>
 		</div>
 		
@@ -72,27 +82,37 @@
 					<h3>Hardware request form</h3>
 				</div>
 				
-				{% if error_message %}<p class="danger"><strong>{{ error_message }}</strong></p>{% endif %}
+				{% if error_message %}<p class="btn-danger" style="text-align:center;"><strong>{{ error_message }}</strong></p>{% endif %}
 				{% csrf_token %}
-				<div class="col-auto">
+				<div class="form-group" style="width: 30%;">
 					<label class="form-label">Taker: </label>
-					<input name= "username" type="text" placeholder="undefined">
+					<input class="form-control" name= "username" type="text" value="{{ user.username }}" placeholder="{{ user.username }}" disabled>
 				</div>
 
-				<div class="col-auto">
+				<div class="form-group" style="width: 30%;">
 					<label class="form-label">Quantity: </label>
-					<input name="quantity" type="number" placeholder=1>
+					<input class="form-control" name="quantity" type="number" placeholder=1>
 				</div>
 				
-				<div class="col-auto">
+				<div class="form-group" style="width: 30%;">
 					<label class="form-label">Return date: </label>
-					<input id="rdate" name="returndate" type="date" placeholder=1>
+					<input class="form-control" id="rdate" name="returndate" type="date" placeholder=1>
 				</div>
 				
-				<div class="form-group">
+				<div class="form-group" style="width: 80%;">
 					<label>Additional info</label>
 					<textarea class="form-control" name="desc" rows="3"></textarea>
 				</div>
+
+				<div class="form-group" style="width: 45%;">
+					<label>Room</label>
+					<select name="room" id="room" class="form-control">
+						{% for room in rooms %}
+						<option value="{{ room.designation }}">{{ room }}</option>
+						{% endfor %}
+					  </select>
+				</div>
+
 				
 				<div style="margin-top:3%";>
 				

@@ -22,12 +22,11 @@
 </head>
 <body>
 	
-	{% include "./base.html" %}	
+	{% include "../base.html" %}	
 	{% load static %}
 	{% csrf_token %}
-	{% if category.name %}
-	
-	<h1 style="width=100%;margin-top: 1%;text-align: center;" > {{ category.name }} </h1>	
+	{% if category_hardwares %}
+	<h1 style="width:100%;margin-top: 1%;text-align: center;" > {{ category.name }} </h1>	
 	<hr class="dropdown-divider" style="margin-top: 1%;">
 	
 	{% include "./upper-panel.html" %}
@@ -38,33 +37,39 @@
 			<div class="list-group" style="width: 60%;margin: auto;">
 		{% endif %}
       
-			  {% for hardware in category.hardware_set.all %}
+			  {% for hw in category_hardwares %}
 				{% if obj_view == 0 %}
 					  <div class="col">
 						<div class="card" style="width: 18rem; margin: 2%;">
-						  <img src="{% static 'hardware/' %}{{category.name}}/{{ hardware.image_name }}.jpg" class="card-img-top" alt="{{ hardware.name }}"> 
+						  <img src="{% static 'hardware/' %}{{category.name}}/{{ hw.hardware.image_name }}.jpg" class="card-img-top" alt="{{ hw.hardware.name }}"> 
 						  <div class="card-body">
-							<h5 class="card-title">{{ hardware.name }}</h5>
+							<h5 class="card-title">{{ hw.hardware.name }}</h5>
 							
-							{% if hardware.hardwareamount.quantity > 0 %}
+							{% if hw.amount_available > 0 %}
 								<div class="card" style="border: 1px solid #adb5bd;width: 50%;text-align: center; background-color: #20C997;"><p style="padding-top: 10%;"><b>In stock</b></p></div>
 							{% else %}
 								<div class="card" style="border: 1px solid #adb5bd; width: 50%;text-align: center; background-color: #dc3545"><p style="padding-top: 10%;"><b>Out of stock</b></p></div>
 							{% endif %}
 							
-							<p class="card-text">Quantity: {{ hardware.hardwareamount.quantity }} </p>
-							<p class="card-text">Total quantity: {{ hardware.hardwareamount.totalquantity }} </p>
-							<a href="{% url 'hardware:hardware_request' category.id hardware.id %}" class="btn btn-primary">Order</a>
+							<div class='d-flex flex-row' style="margin: 3px">
+								<span class="badge alert-primary" style="margin: 3px">{{ hw.totalquantity  }}</span>
+								<span class="badge alert-success" style="margin: 3px">{{ hw.amount_available }}</span>
+								<span class="badge alert-danger" style="margin: 3px">{{ hw.amount_empty }}</span>
+							</div>
+							<a href="{% url 'hardware:hardware_request' category.id hw.hardware.id %}" class="btn btn-primary">Order</a>
 						  </div>
 						</div>
 					  </div>
 				{% else %}
 
-					<a href="{% url 'hardware:hardware_request' category.id hardware.id %}" class="list-group-item list-group-item" style="margin: 5px;">
-					    <img src="{% static 'hardware/' %}{{category.name}}/{{ hardware.image_name }}.jpg" class="card-img-top" alt="{{ category.name }}" style="width:50px;">
-					    {{ hardware.name }}
-					    <span class="badge alert-primary">{{ hardware.hardwareamount.totalquantity }}</span>
-					    <span class="badge alert-success">{{ hardware.hardwareamount.quantity }}</span>
+					<a href="{% url 'hardware:hardware_request' category.id hw.hardware.id %}" class="list-group-item list-group-item" style="margin: 5px;">
+					    <img src="{% static 'hardware/' %}{{category.name}}/{{ hw.hardware.image_name }}.jpg" class="card-img-top" alt="{{ category.name }}" style="width:50px;">
+					    {{ hw.hardware.name }}
+					    <div class='d-flex flex-row' style="margin: 5px">
+							<span class="badge alert-primary" style="margin: 3px">{{ hw.totalquantity  }}</span>
+							<span class="badge alert-success" style="margin: 3px">{{ hw.amount_available }}</span>
+							<span class="badge alert-danger" style="margin: 3px">{{ hw.amount_empty }}</span>
+						</div>
 					</a>
 					
 				{% endif %}
