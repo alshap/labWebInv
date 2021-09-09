@@ -39,40 +39,42 @@
 		{% endif %}
       
 			  {% for hw in category_hardwares %}
-				{% if obj_view == 0 %}
-					  <div class="col">
-						<div class="card" style="width: 18rem; margin: 2%;">
-						  <img src="{% static 'hardware/' %}{{category.name}}/{{ hw.hardware.image_name }}.jpg" class="card-img-top" alt="{{ hw.hardware.name }}"> 
-						  <div class="card-body">
-							<h5 class="card-title">{{ hw.hardware.name }}</h5>
-							
-							{% if hw.amount_available > 0 %}
-								<div class="card" style="border: 1px solid #adb5bd;width: 50%;text-align: center; background-color: #20C997;"><p style="padding-top: 10%;"><b>{% trans 'In Stock' %}</b></p></div>
-							{% else %}
-								<div class="card" style="border: 1px solid #adb5bd; width: 50%;text-align: center; background-color: #dc3545"><p style="padding-top: 10%;"><b>{% trans 'Out of Stock' %}</b></p></div>
-							{% endif %}
-							
-							<div class='d-flex flex-row' style="margin: 3px">
-								<span class="badge alert-primary" style="margin: 3px">{{ hw.totalquantity  }}</span>
-								<span class="badge alert-success" style="margin: 3px">{{ hw.amount_available }}</span>
-								<span class="badge alert-danger" style="margin: 3px">{{ hw.amount_empty }}</span>
+				{% if hw.hardware.available %}
+						{% if obj_view == 0 %}
+							<div class="col">
+								<div class="card" style="width: 18rem; margin: 2%;">
+								<img src="{% static 'hardware/' %}{{category.name}}/{{ hw.hardware.image_name }}.jpg" class="card-img-top" alt="{{ hw.hardware.name }}"> 
+								<div class="card-body">
+									<h5 class="card-title">{{ hw.hardware.name }}</h5>
+									
+									{% if hw.amount_available > 0 %}
+										<div class="card" style="border: 1px solid #adb5bd;width: 50%;text-align: center; background-color: #20C997;"><p style="padding-top: 10%;"><b>{% trans 'In Stock' %}</b></p></div>
+									{% else %}
+										<div class="card" style="border: 1px solid #adb5bd; width: 50%;text-align: center; background-color: #dc3545"><p style="padding-top: 10%;"><b>{% trans 'Out of Stock' %}</b></p></div>
+									{% endif %}
+									
+									<div class='d-flex flex-row' style="margin: 3px">
+										<span class="badge alert-primary" style="margin: 3px">{{ hw.totalquantity  }}</span>
+										<span class="badge alert-success" style="margin: 3px">{{ hw.amount_available }}</span>
+										<span class="badge alert-danger" style="margin: 3px">{{ hw.amount_empty }}</span>
+									</div>
+									<a href="{% url 'hardware:hardware_request' category.id hw.hardware.id %}" class="btn btn-primary">{% trans 'Order' %}</a>
+								</div>
+								</div>
 							</div>
-							<a href="{% url 'hardware:hardware_request' category.id hw.hardware.id %}" class="btn btn-primary">{% trans 'Order' %}</a>
-						  </div>
-						</div>
-					  </div>
-				{% else %}
+						{% else %}
 
-					<a href="{% url 'hardware:hardware_request' category.id hw.hardware.id %}" class="list-group-item list-group-item" style="margin: 5px;">
-					    <img src="{% static 'hardware/' %}{{category.name}}/{{ hw.hardware.image_name }}.jpg" class="card-img-top" alt="{{ category.name }}" style="width:50px;">
-					    {{ hw.hardware.name }}
-					    <div class='d-flex flex-row' style="margin: 5px">
-							<span class="badge alert-primary" style="margin: 3px">{{ hw.totalquantity  }}</span>
-							<span class="badge alert-success" style="margin: 3px">{{ hw.amount_available }}</span>
-							<span class="badge alert-danger" style="margin: 3px">{{ hw.amount_empty }}</span>
-						</div>
-					</a>
-					
+							<a href="{% url 'hardware:hardware_request' category.id hw.hardware.id %}" class="list-group-item list-group-item" style="margin: 5px;">
+								<img src="{% static 'hardware/' %}{{category.name}}/{{ hw.hardware.image_name }}.jpg" class="card-img-top" alt="{{ category.name }}" style="width:50px;">
+								{{ hw.hardware.name }}
+								<div class='d-flex flex-row' style="margin: 5px">
+									<span class="badge alert-primary" style="margin: 3px">{{ hw.totalquantity  }}</span>
+									<span class="badge alert-success" style="margin: 3px">{{ hw.amount_available }}</span>
+									<span class="badge alert-danger" style="margin: 3px">{{ hw.amount_empty }}</span>
+								</div>
+							</a>
+							
+						{% endif %}
 				{% endif %}
 			  {% endfor %}
 			  

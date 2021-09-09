@@ -71,10 +71,12 @@
                     <button onclick="this.form.submit()" name='scope' value='All' class="card rooms-item rooms-item-nochosen">{% trans 'All' %}</button>
                   {% endif %}
               {% for room in rooms %}
-                  {% if scope_room == room.name %}
-                      <button onclick="this.form.submit()" name='scope' value='{{ room.name }}' class="card rooms-item rooms-item-chosen">{{ room.designation }}</button>
-                  {% else %}
-                      <button onclick="this.form.submit()" name='scope' value='{{ room.name }}' class="card rooms-item rooms-item-nochosen">{{ room.designation }}</button>
+                  {% if room.available %}
+                      {% if scope_room == room.name %}
+                          <button onclick="this.form.submit()" name='scope' value='{{ room.name }}' class="card rooms-item rooms-item-chosen">{{ room.designation }}</button>
+                      {% else %}
+                          <button onclick="this.form.submit()" name='scope' value='{{ room.name }}' class="card rooms-item rooms-item-nochosen">{{ room.designation }}</button>
+                      {% endif %}
                   {% endif %}
               {% endfor %}
           </form>

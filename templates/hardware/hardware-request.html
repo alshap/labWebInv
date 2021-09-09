@@ -62,7 +62,9 @@
 				<p><b>{% trans 'Available amount' %}:</b></p>
 				<ul></ul>
 					{% for amount in hardware.hardwareamount_set.all %}
-						<li>{{amount.room}} | {% trans 'Available' %}: {{amount.quantity}} | {% trans 'Total' %}: {{amount.totalquantity}}</li>
+						{% if amount.room.available %}
+								<li>{{amount.room}} | {% trans 'Available' %}: {{amount.quantity}} | {% trans 'Total' %}: {{amount.totalquantity}}</li>
+						{% endif %}
 					{% endfor %}
 				</ul>
 

@@ -18,7 +18,7 @@ class IndexView(generic.ListView):
  
     def get(self, request, *args, **kwargs):
         rooms = Room.objects.all()
-        categories = Category.objects.all()
+        categories = Category.objects.filter(available = True)
         scope_room = 'All'
         hardware_categories_amounts = []
         if 'scope' in request.GET:
@@ -65,7 +65,7 @@ class DevicesView(generic.DetailView):
     template_name = 'hardware/category-details.html'
     
     def get(self, request, pk):
-        rooms = Room.objects.all()
+        rooms = Room.objects.filter(available = True)
         scope_room = 'All'
         category = Category.objects.get(pk=pk)
         hardwares_n_amounts = []
@@ -77,7 +77,7 @@ class DevicesView(generic.DetailView):
                 scope_room = request.GET['scope']
         
         if scope_room == 'All':
-            for hw in category.hardware_set.all():
+            for hw in category.hardware_set.filter(available = True):
                 hardwares_n_amounts.append({'hardware': hw,
                                             'amount_available':hw.get_amount_values(),
                                             'totalquantity':hw.get_totalamount_values(),
@@ -114,7 +114,7 @@ class HardwareRequestView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        context['rooms'] = Room.objects.all()
+        context['rooms'] = Room.objects.filter(available = True)
         return context
 
 def take(request, hardware_id):

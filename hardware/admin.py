@@ -10,7 +10,7 @@ class TakenHardwareInline(admin.TabularInline):
 
 @admin.register(Hardware)
 class HardwareAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'product_id', 'image_name', 'available', 'get_amount')
+    list_display = ('name', 'category', 'product_id', 'image_name', 'available')
     
     inlines = [HardwareAmountInline, TakenHardwareInline]
     list_filter = ('category','available')
@@ -27,7 +27,9 @@ class HardwareAdmin(admin.ModelAdmin):
     actions = []
     def get_actions(self, request):
         actions = super(HardwareAdmin, self).get_actions(request)
-        del actions['delete_selected']
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+
         return actions
     
          
@@ -52,7 +54,8 @@ class TakenHardwareAdmin(admin.ModelAdmin):
     
     def get_actions(self, request):
         actions = super(TakenHardwareAdmin, self).get_actions(request)
-        del actions['delete_selected']
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
         return actions
     
     def overwritten_delete_selected(self, request, queryset):
@@ -70,7 +73,8 @@ class TakenHardwareArchieveAdmin(admin.ModelAdmin):
     
     def get_actions(self, request):
         actions = super(TakenHardwareArchieveAdmin, self).get_actions(request)
-        del actions['delete_selected']
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
         return actions
   
 @admin.register(Category)
@@ -79,7 +83,8 @@ class CategoryAdmin(admin.ModelAdmin):
     
     def get_actions(self, request):
         actions = super(CategoryAdmin, self).get_actions(request)
-        del actions['delete_selected']
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
         return actions
     
 admin.site.register(HardwareAmount)
