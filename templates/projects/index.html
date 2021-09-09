@@ -1,5 +1,6 @@
 <!doctype html>
 {% load static %}
+{% load i18n %}
 <html lang="en">
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -10,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>Programming laboratory</title>
+<title>{% trans 'Projects' %} | VK Inventory</title>
 </head>
 <body>
   
@@ -32,7 +33,7 @@
             <p class="card-text" style="margin-left: 5%;margin-top: 5%;">{{ project.description }}</p>
             <form class="row g-2" action="{% url 'projects:getinfo' project.id %}" method="post">
               {% csrf_token %}
-              <button type="submit" class="btn btn-info mb-3">Open</button>
+              <button type="submit" class="btn btn-info mb-3">{% trans 'Open' %}</button>
             </form>
           </div>
         </div>
@@ -44,7 +45,7 @@
   {% endfor %}
   </div>
 {% else %}
-  <p>Project list is empty</p>
+  <p>{% trans 'Projects list is empty' %}</p>
 {% endif %}
 
 <div style="margin-top: 2%"></div>

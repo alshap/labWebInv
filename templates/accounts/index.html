@@ -1,0 +1,35 @@
+<!doctype html>
+{% load static %}
+{% load i18n %}
+<html lang="en">
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+   
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>{% trans 'Profile' %} | VK Inventory</title>
+</head>
+<body>
+  
+{% include "../base.html" %}
+
+<div class="d-flex flex-row justify-content-center">
+    <div id='profile-settingsmenu' class='card'>
+            <h4 style="margin-left: auto;margin-right:auto;margin-top:10px;"> {% trans 'Menu' %} </h4>
+            <a class="btn btn-primary settings-button w-75" style="margin-left: auto; margin-right: auto;"><h6>{% trans 'Add Hardware' %}</h6></a>
+            <a class="btn btn-primary settings-button w-75" style="margin-left: auto; margin-right: auto;"><div><h6>{% trans 'Manage Laboratories' %}</h6></div></a>
+            <h4 style="margin-left: auto;margin-right:auto;margin-top:10px;"> {% trans 'Settings' %} </h4>
+            <a class="btn btn-primary settings-button w-75" style="margin-left: auto; margin-right: auto;"><h6>{% trans 'Change password' %}</h6></a>
+
+    </div>
+    <div id='profile-mainpanel' class='card'></div>
+    <div id='profile-history' class='card'></div>
+
+</div>
+
+</body>

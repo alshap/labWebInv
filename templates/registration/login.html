@@ -33,11 +33,11 @@
     {% csrf_token %}
     <div class="form-group">
         <label for="un">{{ form.username.label_tag }}</label>
-        <input class="form-control" id="username" name='username' placeholder="Username">
+        <input class="form-control" id="username" name='username' placeholder="{% trans 'Username' %}">
     </div>
     <div class="form-group">
         <label for="pw">{{ form.password.label_tag }}</label>
-        <input class="form-control" id="password" name='password' aria-describedby="pwhelp" placeholder="Enter password">
+        <input class="form-control" id="password" name='password' aria-describedby="pwhelp" placeholder="{% trans 'Enter password' %}">
         <small id="pwhelp" class="form-text text-muted">We'll never share your password with anyone else.</small>
     </div>
 

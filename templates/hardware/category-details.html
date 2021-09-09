@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,7 +19,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     
-    <title>Hardware categories</title>
+    <title>{% trans 'Hardware Categories' %} | VK Inventory</title>
 </head>
 <body>
 	
@@ -46,9 +47,9 @@
 							<h5 class="card-title">{{ hw.hardware.name }}</h5>
 							
 							{% if hw.amount_available > 0 %}
-								<div class="card" style="border: 1px solid #adb5bd;width: 50%;text-align: center; background-color: #20C997;"><p style="padding-top: 10%;"><b>In stock</b></p></div>
+								<div class="card" style="border: 1px solid #adb5bd;width: 50%;text-align: center; background-color: #20C997;"><p style="padding-top: 10%;"><b>{% trans 'In Stock' %}</b></p></div>
 							{% else %}
-								<div class="card" style="border: 1px solid #adb5bd; width: 50%;text-align: center; background-color: #dc3545"><p style="padding-top: 10%;"><b>Out of stock</b></p></div>
+								<div class="card" style="border: 1px solid #adb5bd; width: 50%;text-align: center; background-color: #dc3545"><p style="padding-top: 10%;"><b>{% trans 'Out of Stock' %}</b></p></div>
 							{% endif %}
 							
 							<div class='d-flex flex-row' style="margin: 3px">
@@ -56,7 +57,7 @@
 								<span class="badge alert-success" style="margin: 3px">{{ hw.amount_available }}</span>
 								<span class="badge alert-danger" style="margin: 3px">{{ hw.amount_empty }}</span>
 							</div>
-							<a href="{% url 'hardware:hardware_request' category.id hw.hardware.id %}" class="btn btn-primary">Order</a>
+							<a href="{% url 'hardware:hardware_request' category.id hw.hardware.id %}" class="btn btn-primary">{% trans 'Order' %}</a>
 						  </div>
 						</div>
 					  </div>
@@ -78,7 +79,7 @@
 		   </div>
 			
 	{% else %}
-		<p>Error. Category is empty or can not be loaded.</p>
+		<p>{% trans 'Error. Category empty or can not be downloaded!' %}</p>
 	{% endif %}
 	
 </body>

@@ -1,10 +1,11 @@
 {% load static %}
+{% load i18n %}
 <!--upper-->
 	<div class="btn-group upper-panel">
           <!--info-->
           <div class="card p-1 upper-panel-info">
-                <span class="badge alert-primary m-1">Quantity</span><span class="badge alert-success m-1">Available</span>
-                <span class="badge alert-danger m-1">Empty</span>
+                <span class="badge alert-primary m-1">{% trans 'Quantity' %}</span><span class="badge alert-success m-1">{% trans 'Available' %}</span>
+                <span class="badge alert-danger m-1">{% trans 'Empty' %}</span>
           </div>
           
           <!--search-->
@@ -12,11 +13,11 @@
             <form class="d-flex" action="{% url 'hardware:hardware_search' %}" method="get">
 
               <div class="input-group mb-3">
-                <input name="search_query" class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <input name="search_query" class="form-control" type="search" placeholder="{% trans 'Search' %}" aria-label="Search">
                 <div class="input-group-append">
                   <span class="input-group-text">
                       <select name='room_choice' class="form-select">
-                        <option selected value='All'>All rooms</option>
+                        <option selected value='All'>{% trans 'All rooms' %}</option>
                         {% for room in rooms %}
                             <option value='{{ room.designation }}'>{{ room }}</option>
                         {% endfor %}
@@ -24,7 +25,7 @@
                   </span>
                 </div>
 
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button class="btn btn-outline-success" type="submit">{% trans 'Search' %}</button>
 
               </div>
             </form>
@@ -44,10 +45,10 @@
             
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <a class="dropdown-item" href="{% url 'hardware:setview' 0 %}">
-                  <img src="{% static 'icons/cardview-icon.jpg' %}" width="50px">Cardview
+                  <img src="{% static 'icons/cardview-icon.jpg' %}" width="50px">{% trans 'Cardview' %}
               </a>
               <a class="dropdown-item" href="{% url 'hardware:setview' 1 %}">
-                  <img src="{% static 'icons/listview-icon.jpg' %}" width="50px">Listview
+                  <img src="{% static 'icons/listview-icon.jpg' %}" width="50px">{% trans 'Listview' %}
               </a>
             
             </div>
@@ -60,14 +61,14 @@
 
 <div class="d-flex justify-content-center">
         <span class="input-group-text scope">
-          <div style="margin-top: 5px;"><h4>Scope</h4></div>
+          <div style="margin-top: 5px;"><h4>{% trans 'Scope' %}</h4></div>
           <img style="width: 28pxpx;height:28px;border: 20%;margin-top:3px;background-color: transparent;opacity:0.1;" src="{% static 'icons/arrowicon.png' %}">
         </span>
         <form class="d-flex justify-content-center" action="{% url 'hardware:index' %}" method='GET'>
                   {% if scope_room == 'All' %}
-                    <button onclick="this.form.submit()" name='scope' value='All' class="card rooms-item rooms-item-chosen">All</button>
+                    <button onclick="this.form.submit()" name='scope' value='All' class="card rooms-item rooms-item-chosen">{% trans 'All' %}</button>
                   {% else %}
-                    <button onclick="this.form.submit()" name='scope' value='All' class="card rooms-item rooms-item-nochosen">All</button>
+                    <button onclick="this.form.submit()" name='scope' value='All' class="card rooms-item rooms-item-nochosen">{% trans 'All' %}</button>
                   {% endif %}
               {% for room in rooms %}
                   {% if scope_room == room.name %}

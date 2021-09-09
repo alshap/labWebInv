@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 {% if selected_proj.available %}
 	<div class="card" style="width:95%;margin:auto;">
@@ -10,7 +11,7 @@
 		  <div class="col-sm-6">
 			<div class="card">
 			  <div class="card-body">
-				<h5 class="card-title"><b>Information</b></h5>
+				<h5 class="card-title"><b>{% trans 'Information' %}</b></h5>
 				<p class="card-text">{{ selected_proj.description }}</p>
 			  </div>
 			</div>
@@ -19,7 +20,7 @@
 		  <div class="col-sm-6">
 			<div class="card">
 			  <div class="card-body">
-				<h5 class="card-title"><b>Connection schema</b></h5>
+				<h5 class="card-title"><b>{% trans 'Connection schema' %}</b></h5>
 				<img src="{% static 'projects/schemas/' %}{{ selected_proj.schema_name }}.jpg" width = "100%">
 			  </div>
 			</div>
@@ -28,13 +29,13 @@
 		  {% if last_readings %}
 		  <div class="col-sm-6">
 			<div class="card">
-				<h5 class="card-title"><b>Live data</b></h5>
+				<h5 class="card-title"><b>{% trans 'Live data' %}</b></h5>
 				{% for reading in last_readings %}
 					  <div class="card">
 							<div class="card-body">
-							<h5 class="card-title"><b>Type: {{ reading.value_type }}</b></h5>
-							<p class="card-text">Value: {{ reading.value }}</p>
-							<p class="card-text"><small class="text-muted">Last updated {{ reading.date }}</small></p>
+							<h5 class="card-title"><b>{% trans 'Type' %}: {{ reading.value_type }}</b></h5>
+							<p class="card-text">{% trans 'Value' %}: {{ reading.value }}</p>
+							<p class="card-text"><small class="text-muted">{% trans 'Last updated' %} {{ reading.date }}</small></p>
 							</div>
 						</div>
 				{% endfor %}
@@ -45,9 +46,9 @@
 		  <div class="col-sm-6">
 			<div class="card">
 			  <div class="card-body">
-				<h5 class="card-title"><b>Hardware</b></h5>
+				<h5 class="card-title"><b>{% trans 'Hardware' %}</b></h5>
 				{% for projecthardware in selected_proj.projecthardware_set.all %}
-					<p class="card-text"><b>Name: {{ projecthardware.hardware.name }}</b> / Quantity: {{ projecthardware.quantity }}</p><br>
+					<p class="card-text"><b>{% trans 'Name' %}: {{ projecthardware.hardware.name }}</b> / {% trans 'Quantity' %}: {{ projecthardware.quantity }}</p><br>
 				{% endfor %}
 			  </div>
 			</div>

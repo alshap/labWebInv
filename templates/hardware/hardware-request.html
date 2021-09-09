@@ -1,4 +1,5 @@
 <!doctype html>
+{% load i18n %}
 <html lang="en">
 <head>
       <style>
@@ -11,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <title>{{ hardware.name }} request</title>
+    <title>{{ hardware.name }} {% trans 'request' %} | VK Inventory</title>
 </head>
 <body>
 	
@@ -23,16 +24,16 @@
 		  <div class="modal-dialog">
 			<div class="modal-content">
 			  <div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Success</h5>
+				<h5 class="modal-title" id="exampleModalLabel">{% trans 'Success' %}</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			  </div>
 			  <div class="modal-body">
-				<p>Hardware: {{ hardware.name }}</p><br>
-				<p>Quantity: {{ taken_amount }}</p>
+				<p>{% trans 'Hardware' %}: {{ hardware.name }}</p><br>
+				<p>{% trans 'Quantity' %}: {{ taken_amount }}</p>
 			  </div>
 			  <div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary"><a style="color: white;" href="{% url 'hardware:index' %}">Move back</a></button>
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans 'Close' %}</button>
+				<button type="button" class="btn btn-primary"><a style="color: white;" href="{% url 'hardware:index' %}">{% trans 'Move back' %}</a></button>
 			  </div>
 			</div>
 		  </div>
@@ -55,13 +56,13 @@
 		<div class="card" style="width: 55rem; margin: auto; margin-top: 3%">
 			<div class="card-body">
 				{% load static %}
-				<h3>Hardware details</h3>
-				<p><b>Name:</b> {{ hardware.name }}</p>
+				<h3>{% trans 'Hardware details' %}</h3>
+				<p><b>{% trans 'Name' %}:</b> {{ hardware.name }}</p>
 
-				<p><b>Avaiable amount:</b></p>
+				<p><b>{% trans 'Available amount' %}:</b></p>
 				<ul></ul>
 					{% for amount in hardware.hardwareamount_set.all %}
-						<li>{{amount.room}} | Quantity: {{amount.quantity}}</li>
+						<li>{{amount.room}} | {% trans 'Available' %}: {{amount.quantity}} | {% trans 'Total' %}: {{amount.totalquantity}}</li>
 					{% endfor %}
 				</ul>
 
@@ -69,7 +70,7 @@
 
 				{% if hardware.product_id == 'undefined' %}
 				{% else %}
-				<p><b>Product id: </b>{{ hardware.product_id }}</p>
+				<p><b>{% trans 'Product id' %}: </b>{{ hardware.product_id }}</p>
 				{% endif %}
 			</div>
 		</div>
@@ -79,33 +80,33 @@
 			<div class="card-body">
 				{% load static %}
 				<div class="col-auto">
-					<h3>Hardware request form</h3>
+					<h3>{% trans 'Hardware request form' %}</h3>
 				</div>
 				
 				{% if error_message %}<p class="btn-danger" style="text-align:center;"><strong>{{ error_message }}</strong></p>{% endif %}
 				{% csrf_token %}
 				<div class="form-group" style="width: 30%;">
-					<label class="form-label">Taker: </label>
+					<label class="form-label">{% trans 'Taker' %}: </label>
 					<input class="form-control" name= "username" type="text" value="{{ user.username }}" placeholder="{{ user.username }}" disabled>
 				</div>
 
 				<div class="form-group" style="width: 30%;">
-					<label class="form-label">Quantity: </label>
+					<label class="form-label">{% trans 'Quantity' %}: </label>
 					<input class="form-control" name="quantity" type="number" placeholder=1>
 				</div>
 				
 				<div class="form-group" style="width: 30%;">
-					<label class="form-label">Return date: </label>
+					<label class="form-label">{% trans 'Return date' %}: </label>
 					<input class="form-control" id="rdate" name="returndate" type="date" placeholder=1>
 				</div>
 				
 				<div class="form-group" style="width: 80%;">
-					<label>Additional info</label>
+					<label>{% trans 'Additional info' %}</label>
 					<textarea class="form-control" name="desc" rows="3"></textarea>
 				</div>
 
 				<div class="form-group" style="width: 45%;">
-					<label>Room</label>
+					<label>{% trans 'Room' %}</label>
 					<select name="room" id="room" class="form-control">
 						{% for room in rooms %}
 						<option value="{{ room.designation }}">{{ room }}</option>
@@ -118,7 +119,7 @@
 				
 				</div>
 				<div class="col-auto">
-					<button type="submit" class="btn btn-success mb-3">Confirm</button>
+					<button type="submit" class="btn btn-success mb-3">{% trans 'Confirm' %}</button>
 				</div>
 				
 				

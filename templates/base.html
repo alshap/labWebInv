@@ -1,48 +1,50 @@
 {% load i18n %}
+{% load i18n %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
         <a class="navbar-brand" href="https://taltech.ee/virumaa">
             <img src="" alt="" width="100" height="76">
             </a>
-          <a class="navbar-brand h1" href="#">VK Programming Laboratory</a>
+          <a class="navbar-brand h1" href="#">VK {% trans 'Inventory' %}</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link  h4" aria-current="page" href="{% url 'home:index' %}">Home</a>
+                <a class="nav-link  h4" aria-current="page" href="{% url 'home:index' %}">{% trans 'Home' %}</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link  h4" aria-current="page" href="{% url 'hardware:index' %}">Hardware</a>
+                <a class="nav-link  h4" aria-current="page" href="{% url 'hardware:index' %}">{% trans 'Hardware' %}</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link  h4" href="{% url 'projects:index' %}">Student projects</a>
+                <a class="nav-link  h4" href="{% url 'projects:index' %}">{% trans 'Student projects' %}</a>
               </li>
 
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle  h4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Explore 
+                  {% trans 'Explore' %} 
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="{% url 'guides:index' %}">Online guides</a></li>
+                  <li><a class="dropdown-item" href="{% url 'guides:index' %}">{% trans 'Online guides' %}</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="{% url 'explore_online:index' %}">Try live code</a></li>
+                  <li><a class="dropdown-item" href="{% url 'explore_online:index' %}">{% trans 'Try live code' %}</a></li>
                 </ul>
               </li>
             </ul>
 
             {% if user.is_authenticated %}
-              <a class="btn btn-primary" href="#" style="margin-right: 5px;">{{ user.username }}</a>
-              <a class="btn btn-danger" href="{% url 'logout' %}" style="margin-right: 5px;">Log Out</a>
+              <a class="btn btn-primary" href="{% url 'accounts:index' %}" style="margin-right: 5px;">{{ user.username }} | {% trans 'Profile' %}</a>
+              <a class="btn btn-danger" href="{% url 'logout' %}" style="margin-right: 5px;">{% trans 'Log Out' %}</a>
             {% else %}
-              <a class="btn btn-primary" href="{% url 'login' %}" style="margin-right: 5px;">Log In</a>
+              <a class="btn btn-primary" href="{% url 'login' %}" style="margin-right: 5px;">{% trans 'Log In' %}</a>
             {% endif %}
             <form action="{% url 'change_language' %}" method="post" class="form-inline">
               {% csrf_token %}
               <select name="language" class="form-select" onchange="this.form.submit()">
+                {% get_current_language as LANGUAGE_CODE %}
                 {% get_available_languages as LANGUAGES %}
                 {% for language in LANGUAGES %}
                     <option value="{{ language.0 }}" {% if language.0 == LANGUAGE_CODE %} selected{% endif %}>

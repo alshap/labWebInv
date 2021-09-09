@@ -16,19 +16,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: .\LabWeb\urls.py:30
 msgid "^admin/"
 msgstr ""
 
 #: .\LabWeb\urls.py:31
-#, fuzzy
-#| msgid "Hardware"
 msgid "^hardware/"
-msgstr "Оборудование"
+msgstr ""
 
 #: .\LabWeb\urls.py:32
 msgid "^explore_online/"
@@ -48,290 +44,275 @@ msgstr ""
 
 #: .\templates\accounts\index.html:15 .\templates\base.html:39
 msgid "Profile"
-msgstr "Профиль"
+msgstr ""
 
 #: .\templates\accounts\index.html:23
 msgid "Menu"
-msgstr "Меню"
+msgstr ""
 
 #: .\templates\accounts\index.html:24
-#, fuzzy
-#| msgid "Hardware"
 msgid "Add Hardware"
-msgstr "Добавить оборудование"
+msgstr ""
 
 #: .\templates\accounts\index.html:25
 msgid "Manage Laboratories"
-msgstr "Управление лабораториями"
+msgstr ""
 
 #: .\templates\accounts\index.html:26
 msgid "Settings"
-msgstr "Найстройки"
+msgstr ""
 
 #: .\templates\accounts\index.html:27
 msgid "Change password"
-msgstr "Изменить пароль"
+msgstr ""
 
 #: .\templates\base.html:8
 msgid "Inventory"
-msgstr "Инвентаризация"
+msgstr ""
 
 #: .\templates\base.html:15
 msgid "Home"
-msgstr "Главная"
+msgstr ""
 
 #: .\templates\base.html:19 .\templates\hardware\hardware-request.html:31
 #: .\templates\hardware\index.html:23 .\templates\home\index.html:73
 #: .\templates\projects\project-info.html:49
 msgid "Hardware"
-msgstr "Оборудование"
+msgstr ""
 
 #: .\templates\base.html:23
 msgid "Student projects"
-msgstr "Проекты"
+msgstr ""
 
 #: .\templates\base.html:28 .\templates\explore_online\index.html:16
 msgid "Explore"
-msgstr "Изучай"
+msgstr ""
 
 #: .\templates\base.html:31
 msgid "Online guides"
-msgstr "Руководства"
+msgstr ""
 
 #: .\templates\base.html:33
 msgid "Try live code"
-msgstr "Готовый код"
+msgstr ""
 
 #: .\templates\base.html:40
 msgid "Log Out"
-msgstr "Выход"
+msgstr ""
 
 #: .\templates\base.html:42
 msgid "Log In"
-msgstr "Вход"
+msgstr ""
 
 #: .\templates\guides\index.html:18
 msgid "Guides"
-msgstr "Уроки"
+msgstr ""
 
 #: .\templates\hardware\category-details.html:22
 msgid "Hardware Categories"
-msgstr "Категории оборудования"
+msgstr ""
 
 #: .\templates\hardware\category-details.html:50
 msgid "In Stock"
-msgstr "В наличии"
+msgstr ""
 
 #: .\templates\hardware\category-details.html:52
 msgid "Out of Stock"
-msgstr "Отсутствует"
+msgstr ""
 
 #: .\templates\hardware\category-details.html:60
 msgid "Order"
-msgstr "Заказать"
+msgstr ""
 
 #: .\templates\hardware\category-details.html:82
 msgid "Error. Category empty or can not be downloaded!"
-msgstr "Ошибка. Категории остуствуют или не могут быть загружены!"
+msgstr ""
 
 #: .\templates\hardware\hardware-request.html:15
 msgid "request"
-msgstr "запрос"
+msgstr ""
 
 #: .\templates\hardware\hardware-request.html:27
 msgid "Success"
-msgstr "Успешно"
+msgstr ""
 
 #: .\templates\hardware\hardware-request.html:32
 #: .\templates\hardware\hardware-request.html:94
 #: .\templates\hardware\upper-panel.html:7
 #: .\templates\projects\project-info.html:51
 msgid "Quantity"
-msgstr "Количество"
+msgstr ""
 
 #: .\templates\hardware\hardware-request.html:35
 msgid "Close"
-msgstr "Закрыть"
+msgstr ""
 
 #: .\templates\hardware\hardware-request.html:36
-#, fuzzy
-#| msgid "Move"
 msgid "Move back"
-msgstr "Вернуться"
+msgstr ""
 
 #: .\templates\hardware\hardware-request.html:59
-#, fuzzy
-#| msgid "Hardware"
 msgid "Hardware details"
-msgstr "Детали оборудования"
+msgstr ""
 
 #: .\templates\hardware\hardware-request.html:60
 #: .\templates\projects\project-info.html:51
 msgid "Name"
-msgstr "Название"
+msgstr ""
 
 #: .\templates\hardware\hardware-request.html:62
 msgid "Available amount"
-msgstr "Доступное количество"
+msgstr ""
 
 #: .\templates\hardware\hardware-request.html:65
 #: .\templates\hardware\upper-panel.html:7
 msgid "Available"
-msgstr "Доступно"
+msgstr ""
 
 #: .\templates\hardware\hardware-request.html:65
 msgid "Total"
-msgstr "Всего"
+msgstr ""
 
 #: .\templates\hardware\hardware-request.html:73
 msgid "Product id"
-msgstr "Идентификатор оборудования"
+msgstr ""
 
 #: .\templates\hardware\hardware-request.html:83
 msgid "Hardware request form"
-msgstr "Форма запроса оборудования"
+msgstr ""
 
 #: .\templates\hardware\hardware-request.html:89
 msgid "Taker"
-msgstr "Пользователь"
+msgstr ""
 
 #: .\templates\hardware\hardware-request.html:99
 msgid "Return date"
-msgstr "Дата возврата"
+msgstr ""
 
 #: .\templates\hardware\hardware-request.html:104
 msgid "Additional info"
-msgstr "Дополнительная информация"
+msgstr ""
 
 #: .\templates\hardware\hardware-request.html:109
 msgid "Room"
-msgstr "Помещение"
+msgstr ""
 
 #: .\templates\hardware\hardware-request.html:122
 msgid "Confirm"
-msgstr "Подтвердить"
+msgstr ""
 
 #: .\templates\hardware\index.html:53 .\templates\home\index.html:75
 #: .\templates\home\index.html:86 .\templates\home\index.html:97
 #: .\templates\home\index.html:108
 msgid "Move"
-msgstr "Перейти"
+msgstr ""
 
 #: .\templates\hardware\index.html:72
 msgid "Error. Categories can not be loaded!"
-msgstr "Ошибка. Категории не могут быть загружены!"
+msgstr ""
 
 #: .\templates\hardware\search.html:23
-#, fuzzy
-#| msgid "Hardware"
 msgid "Hardware Search"
-msgstr "Поиск оборудования"
+msgstr ""
 
 #: .\templates\hardware\search.html:31
 msgid "Search results"
-msgstr "Результаты поиска"
+msgstr ""
 
 #: .\templates\hardware\upper-panel.html:8
 msgid "Empty"
-msgstr "Отсутствует"
+msgstr ""
 
 #: .\templates\hardware\upper-panel.html:16
 #: .\templates\hardware\upper-panel.html:28
 msgid "Search"
-msgstr "Поиск"
+msgstr ""
 
 #: .\templates\hardware\upper-panel.html:20
 msgid "All rooms"
-msgstr "Все помещения"
+msgstr ""
 
 #: .\templates\hardware\upper-panel.html:48
 msgid "Cardview"
-msgstr "Карточный вид"
+msgstr ""
 
 #: .\templates\hardware\upper-panel.html:51
 msgid "Listview"
-msgstr "Список"
+msgstr ""
 
 #: .\templates\hardware\upper-panel.html:64
 msgid "Scope"
-msgstr "Область видимости"
+msgstr ""
 
 #: .\templates\hardware\upper-panel.html:69
 #: .\templates\hardware\upper-panel.html:71
 msgid "All"
-msgstr "Все"
+msgstr ""
 
 #: .\templates\home\index.html:59
 msgid "Smart greenhouse"
-msgstr "Умная теплица"
+msgstr ""
 
 #: .\templates\home\index.html:60
 msgid "Smart home"
-msgstr "Умный дом"
+msgstr ""
 
 #: .\templates\home\index.html:61
 msgid "Smart apartment"
-msgstr "Умная квартира"
+msgstr ""
 
 #: .\templates\home\index.html:74
 msgid "Explore Programming Laboratory hardware"
-msgstr "Изучай оборудование"
+msgstr ""
 
 #: .\templates\projects\index.html:14
 msgid "Projects"
-msgstr "Проекты"
+msgstr ""
 
 #: .\templates\projects\index.html:36
 msgid "Open"
-msgstr "Открыть"
+msgstr ""
 
 #: .\templates\projects\index.html:48
 msgid "Projects list is empty"
-msgstr "Список проектов пуст"
+msgstr ""
 
 #: .\templates\projects\project-info.html:14
 msgid "Information"
-msgstr "Информация"
+msgstr ""
 
 #: .\templates\projects\project-info.html:23
 msgid "Connection schema"
-msgstr "Схема подключения"
+msgstr ""
 
 #: .\templates\projects\project-info.html:32
 msgid "Live data"
-msgstr "Дата в реальном времени"
+msgstr ""
 
 #: .\templates\projects\project-info.html:36
 msgid "Type"
-msgstr "Тип"
+msgstr ""
 
 #: .\templates\projects\project-info.html:37
 msgid "Value"
-msgstr "Значение"
+msgstr ""
 
 #: .\templates\projects\project-info.html:38
 msgid "Last updated"
-msgstr "Последнее обновление"
+msgstr ""
 
 #: .\templates\registration\login.html:36
 msgid "Username"
-msgstr "Имя пользователя"
+msgstr ""
 
 #: .\templates\registration\login.html:40
-#, fuzzy
-#| msgid "Change password"
 msgid "Enter password"
-msgstr "Изменить пароль"
+msgstr ""
 
 #: .\templates\registration\logout.html:14
-#, fuzzy
-#| msgid "Log Out"
 msgid "Logged Out"
-msgstr "Выход"
+msgstr ""
 
 #: .\templates\registration\logout.html:21
 msgid "You are successfully logged out!"
-msgstr "Вы успешно вышли из системы!"
-
-#~ msgid "Explore VK hardware"
-#~ msgstr "Изучай оборудование VK"
+msgstr ""
